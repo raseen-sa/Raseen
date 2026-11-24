@@ -177,21 +177,29 @@ section{position:relative}
 .src{font-size:13px;color:var(--ink-3);margin:20px 0 0;max-width:60ch}
 
 /* feature tabs */
-.feat{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:start}
-.tabs{display:flex;flex-direction:column;gap:8px}
-.tab{position:relative;text-align:start;background:transparent;border:0;font:inherit;color:var(--ink);padding:20px 24px;border-radius:14px;cursor:pointer;transition:background .3s var(--ease)}
-.tab b{display:block;font-size:19px;font-weight:600;color:var(--ink-3);transition:color .3s}
-.tab span{display:block;color:var(--ink-2);font-size:15.5px;max-height:0;overflow:hidden;opacity:0;transition:max-height .5s var(--ease),opacity .4s,margin .4s}
-.tab .pr{position:absolute;inset-inline:24px;bottom:10px;height:2px;border-radius:1px;background:var(--paper-2);overflow:hidden;opacity:0}
-.tab .pr i{display:block;height:100%;background:var(--teal);transform:scaleX(0);transform-origin:right}
-.tab.on{background:var(--paper)}
-.tab.on b{color:var(--ink)}
-.tab.on span{max-height:120px;opacity:1;margin-top:6px}
-.tab.on .pr{opacity:1}
-.show{position:relative;background:var(--navy);border-radius:20px;min-height:460px;padding:28px;color:#fff;overflow:hidden}
-.pane{position:absolute;inset:28px;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .5s var(--ease),transform .6s var(--ease),visibility .5s}
+/* features (Nov 24): one navy block; the four tasks are a stepper on top and each step's sentence heads its own example (no separate list beside it) */
+.feat{background:var(--navy);border-radius:24px;color:#fff;padding:clamp(18px,3.4vw,36px);display:flex;flex-direction:column;gap:clamp(18px,3vw,30px)}
+.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.tab{all:unset;position:relative;cursor:pointer;display:flex;align-items:center;gap:10px;padding:4px 0 16px;min-width:0}
+.tab .fn{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--on-3);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.18);transition:background .3s,color .3s,box-shadow .3s}
+.tab b{font-size:15.5px;font-weight:600;color:var(--on-3);line-height:1.5;transition:color .3s}
+.tab .pr{position:absolute;inset-inline:0;bottom:0;height:2px;border-radius:1px;background:rgba(255,255,255,.1);overflow:hidden}
+.tab .pr i{display:block;height:100%;background:var(--mustard);transform:scaleX(0);transform-origin:right}
+.tab.on b{color:#fff}.tab.on .fn{background:var(--mustard);color:var(--navy);box-shadow:none}
+.tab.done .fn{color:var(--teal-2);box-shadow:inset 0 0 0 1.5px var(--teal-2)}.tab.done b{color:var(--on-2)}
+.tab:focus-visible{outline:2px solid var(--mustard);outline-offset:4px;border-radius:6px}
+.show{position:relative;display:grid;color:#fff}
+.pane{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .5s var(--ease),transform .6s var(--ease),visibility .5s;max-width:820px;width:100%;margin-inline:auto;align-self:start}
 .pane.on{opacity:1;visibility:visible;transform:none}
-.pane h5{margin:0 0 14px;font-size:13px;font-weight:500;color:var(--on-3)}
+.pane .cap{margin:0 0 18px;font-size:clamp(17px,2vw,21px);font-weight:600;line-height:1.7;text-wrap:balance}
+#show{transition:height .55s var(--ease);overflow:hidden}
+@media (min-width:721px){
+  #features .trace{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+  #features .trace:before{top:9px;bottom:auto;inset-inline:9px;width:auto;height:2px}
+  #features .trace li{padding:34px 0 0}
+  #features .trace li:before{top:1px;inset-inline-start:2px}
+  #features .vcards{grid-template-columns:1fr 1fr;align-items:start}
+}
 /* pane 1: cluster */
 .heads{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .heads li{display:flex;gap:10px;align-items:center;padding:8px 12px;border-radius:8px;background:var(--navy-2);box-shadow:inset 0 0 0 1px var(--line-d);font-size:13px}
@@ -426,13 +434,9 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
   .feed li:nth-child(n+4){display:none}
   .stat{grid-template-columns:minmax(0,1fr);gap:6px;padding:20px}
   .stat b{font-size:38px}
-  .tabs{flex-direction:row;overflow-x:auto;gap:8px;scrollbar-width:none;margin-inline:-24px;padding-inline:24px}
-  .tab{flex:none;padding:10px 16px;background:#fff;border-radius:99px}
-  .tab b{font-size:15px}
-  .tab span,.tab .pr{display:none}
-  .tab.on{background:var(--navy)}.tab.on b{color:#fff}
-  .show{min-height:520px;padding:20px}
-  .pane{inset:20px}
+  .tabs{grid-template-columns:auto auto auto auto;justify-content:space-between;gap:6px}
+  .tab b{display:none}.tab.on b{display:block;font-size:14px}
+  .tab{padding-bottom:12px}
   .bento,.aud,.steps,.road{grid-template-columns:minmax(0,1fr)}
   .steps .rail{display:none}
   .cmp .row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
@@ -614,16 +618,11 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 <!-- features -->
 <section class="band white" id="features"><div class="wrap">
   <div class="head"><h2 class="h2 rv">من عشرات الأخبار إلى موجز واحد موثّق</h2><p class="lede rv">أربع مهام كانت تأخذ ساعات من فريقك، يقوم بها رسين في دقائق.</p></div>
-  <div class="feat">
-    <div class="tabs" role="tablist" id="tabs">
-      <button class="tab on" role="tab"><b>يجمع المكرر في قصة واحدة</b><span>بدلًا من قراءة 87 خبرًا عن الموضوع نفسه، تطّلع على قصة واحدة تبيّن حجم انتشاره ومن نشره.</span><span class="pr"><i></i></span></button>
-      <button class="tab" role="tab"><b>يتتبع أول مصدر</b><span>يعرض متى وأين ظهر الخبر أول مرة، وكيف انتقل من حساب إلى آخر.</span><span class="pr"><i></i></span></button>
-      <button class="tab" role="tab"><b>يفرّق بين الادعاء والمعلومة</b><span>يميّز الادعاء غير المؤكد عن المعلومة الموثّقة، ويوضح السبب.</span><span class="pr"><i></i></span></button>
-      <button class="tab" role="tab"><b>يجهّز الموجز</b><span>موجز جاهز للمراجعة، وكل معلومة فيه معها رقم يوصلك لمصدرها.</span><span class="pr"><i></i></span></button>
-    </div>
+  <div class="feat rv">
+    <div class="tabs" role="tablist" id="tabs"><button class="tab on" role="tab"><span class="fn">1</span><b>يجمع المكرر في قصة واحدة</b><span class="pr"><i></i></span></button><button class="tab" role="tab"><span class="fn">2</span><b>يتتبع أول مصدر</b><span class="pr"><i></i></span></button><button class="tab" role="tab"><span class="fn">3</span><b>يفرّق بين الادعاء والمعلومة</b><span class="pr"><i></i></span></button><button class="tab" role="tab"><span class="fn">4</span><b>يجهّز الموجز</b><span class="pr"><i></i></span></button></div>
     <div class="show" id="show">
       <div class="pane on">
-        <h5>أخبار تتحدث عن الشيء نفسه</h5>
+        <p class="cap">بدلًا من قراءة 87 خبرًا عن الموضوع نفسه، تطّلع على قصة واحدة تبيّن حجم انتشاره ومن نشره.</p>
         <ul class="heads">
           <li>«نخلة سترفع أسعار الباقات 40% الشهر القادم»<em>حساب على X</em></li>
           <li>مصادر: زيادة مرتقبة في أسعار باقات نخلة<em>موقع إخباري</em></li>
@@ -634,7 +633,7 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
         <div class="story"><div><b>قصة واحدة: ادعاء رفع أسعار نخلة</b><small>من 31 مصدرًا، أولها 07:42</small></div><div class="big"><b class="num">87</b><small>خبرًا</small></div></div>
       </div>
       <div class="pane">
-        <h5>مسار الخبر من أول ظهور</h5>
+        <p class="cap">يعرض متى وأين ظهر الخبر أول مرة، وكيف انتقل من حساب إلى آخر.</p>
         <ol class="trace">
           <li class="first"><time class="num">07:42</time><b>تغريدة من حساب مجهول بلا سجل سابق</b><span class="tag">أول ظهور</span></li>
           <li><time class="num">07:58</time><b>أعاد نشرها 12 حسابًا خلال ربع ساعة</b></li>
@@ -642,7 +641,7 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
         </ol>
       </div>
       <div class="pane">
-        <h5>نتيجة التحقق</h5>
+        <p class="cap">يميّز الادعاء غير المؤكد عن المعلومة الموثّقة، ويوضح السبب.</p>
         <div class="vcards">
           <div class="vc bad"><div class="top"><q>نخلة سترفع أسعار الباقات 40%</q><span class="chip bad">غير مؤكد</span></div>
             <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>لا يوجد إعلان على موقع نخلة الرسمي</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>أول ظهور من حساب بلا سجل سابق</li></ul></div>
@@ -651,6 +650,7 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
         </div>
       </div>
       <div class="pane">
+        <p class="cap">موجز جاهز للمراجعة، وكل معلومة فيه معها رقم يوصلك لمصدرها.</p>
         <div class="doc">
           <div class="dh"><b>موجز: ادعاء رفع أسعار نخلة</b><small class="num">09:20</small></div>
           <p><strong>الخلاصة:</strong> الادعاء غير صحيح. نفته الشركة في بيان رسمي<sup>[3]</sup>.</p>
@@ -979,11 +979,14 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 
   // ---------- feature tabs: advance on their own, a tap picks one
   var tabs=$$('.tab'), panes=$$('#show .pane'), cur=0, TAB=6, tabTw=null;
+  // the block takes the height of the step on show, so short steps leave no empty space
+  var showEl=$('#show'); function fitShow(){ if(showEl&&panes[cur]) showEl.style.height=panes[cur].offsetHeight+'px'; }
+  addEventListener('resize',fitShow); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitShow);
   function showTab(i){
-    cur=i; tabs.forEach(function(t,j){t.classList.toggle('on',j===i);t.setAttribute('aria-selected',j===i)}); panes.forEach(function(p,j){p.classList.toggle('on',j===i)});
+    cur=i; tabs.forEach(function(t,j){t.classList.toggle('on',j===i);t.setAttribute('aria-selected',j===i)}); panes.forEach(function(p,j){p.classList.toggle('on',j===i)}); fitShow();
     if(!window.gsap) return;
     if(tabTw) tabTw.kill();
-    $$('.tab .pr i').forEach(function(b){gsap.set(b,{scaleX:0})});
+    $$('.tab .pr i').forEach(function(b,j){gsap.set(b,{scaleX:j<i?1:0})}); tabs.forEach(function(t,j){t.classList.toggle('done',j<i)});
     tabTw=gsap.to(tabs[i].querySelector('.pr i'),{scaleX:1,duration:TAB,ease:'none',paused:true,onComplete:function(){showTab((cur+1)%tabs.length);tabTw.play()}});
     if(featVis&&!reduce) tabTw.play();
   }

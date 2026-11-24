@@ -1,5 +1,5 @@
 # Run inside src/: python3 build.py  -> writes app.html (platform) and raseen.html (site + platform)
-import base64
+import base64, radar_logo as RL
 def R(s,a,b):
     assert s.count(a)==1,(a[:70],s.count(a)); return s.replace(a,b)
 # the logo (new identity, Nov 24): vector files from the brand guidelines, white on navy and navy on light
@@ -20,7 +20,7 @@ document.addEventListener('click',function(e){var x=e.target.closest('[data-exit
 
 /* ---- routing */""")
     open('app.src.html','w').write(a)
-app=a.replace('{{LOGO_DARK}}',LD).replace('{{LOGO}}',LW).replace('{{FAVICON}}',FAV)
+app=RL.apply(a).replace('{{RL_JS}}',RL.JS).replace('{{LOGO_DARK}}',LD).replace('{{LOGO}}',LW).replace('{{FAVICON}}',FAV)
 open('app.html','w').write(app)
 doc='<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>'+app+'</body></html>'
 
@@ -59,6 +59,6 @@ if 'appLayer' not in s:
 
   // marquee: duplicate the row so it loops without a gap''')
     open('web.src.html','w').write(s)
-out=s.replace('{{LOGO_DARK}}',LD).replace('{{LOGO}}',LW).replace('{{FAVICON}}',FAV).replace('{{APP}}',doc.replace('</script>','<\\/script>'))
+out=RL.apply(s).replace('{{RL_JS}}',RL.JS).replace('{{LOGO_DARK}}',LD).replace('{{LOGO}}',LW).replace('{{FAVICON}}',FAV).replace('{{APP}}',doc.replace('</script>','<\\/script>'))
 open('raseen.html','w').write(out)
 print('ok',len(out))

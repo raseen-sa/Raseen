@@ -50,7 +50,7 @@ section{position:relative}
 #loader{position:fixed;inset:0;z-index:100;background:var(--navy);display:grid;place-items:center;animation:ldfail .01s 6s forwards}
 @keyframes ldfail{to{opacity:0;visibility:hidden}}
 .ld-in{display:flex;flex-direction:column;align-items:center;gap:28px}
-.ld-in img{width:200px}
+.ld-in img,.ld-in .rl{width:200px}
 .ld-line{width:150px;height:2px;background:rgba(255,255,255,.1);overflow:hidden;border-radius:1px}
 .ld-line i{display:block;height:100%;background:linear-gradient(to left,var(--teal-2),var(--mustard));transform:scaleX(0);transform-origin:right}
 
@@ -58,7 +58,7 @@ section{position:relative}
 .nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .35s var(--ease),box-shadow .35s}
 .nav.solid{background:rgba(11,36,50,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line-d)}
 .nav .wrap{height:72px;display:flex;align-items:center;gap:32px}
-.brand img{height:44px;width:auto}
+.brand img,.brand .rl{height:44px;width:auto}
 .links{display:flex;gap:28px;margin-inline-start:16px}
 .links a{font-size:15px;color:var(--on-2);transition:color .2s}
 .links a:hover{color:#fff}
@@ -91,7 +91,7 @@ section{position:relative}
   background:radial-gradient(circle at 50% 30%,#FFFFFF 0%,#F7FAF9 55%,#E6EEEC 100%);
   box-shadow:inset 0 -10px 24px rgba(11,36,50,.08),0 0 0 7px var(--navy),0 0 0 8.5px rgba(60,200,207,.6),0 0 60px 6px rgba(22,139,146,.28),0 30px 60px rgba(0,0,0,.4)}
 .logo-disc:after{content:"";position:absolute;inset:6%;border-radius:50%;border:1px solid rgba(22,139,146,.16)}
-.logo-disc img{width:78%;height:auto;position:relative;z-index:1}
+.logo-disc img,.logo-disc .rl{width:78%;height:auto;position:relative;z-index:1}
 .logo-disc .ripple{position:absolute;inset:0;border-radius:50%;border:2px solid var(--mustard);opacity:0;pointer-events:none}
 .logo-disc .halo{position:absolute;inset:-26px;border-radius:50%;border:1px dashed rgba(60,200,207,.35);animation:spin 40s linear infinite}
 .logo-disc .halo:before{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--mustard)}
@@ -516,14 +516,34 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 #problem .tlab{font-size:18px;font-weight:600;color:#fff;line-height:1.6}
 #problem .tlab small{display:block;font-size:13px;font-weight:400;color:rgba(255,255,255,.55)}
 @media (max-width:700px){#problem .tanks{grid-template-columns:1fr;gap:28px}#problem .tank{width:170px}}
+
+/* logo radar (Nov 24): the word stays still; a sweep lights the waves. loop = repeats, once = on load and on hover */
+.rl{display:block;overflow:visible;aspect-ratio:472/158}
+.rl .rl-sw{transform-box:view-box;transform-origin:710px 388px;transform:rotate(-60deg)}
+.rl .rl-beam{fill:#2FB3A3;fill-opacity:.15}
+.rl .rl-beam path{fill-opacity:inherit}
+.rl .rl-beam .e{stroke:var(--ink);stroke-width:1.4;stroke-linecap:round;opacity:.55}
+.rl-loop .rl-sw{animation:rlSweep 3.2s cubic-bezier(.45,.05,.4,1) infinite}
+.rl-loop .rl-beam{animation:rlSweep 3.2s cubic-bezier(.45,.05,.4,1) infinite,rlBeam 3.2s linear infinite}
+.rl-loop .rl-base{animation:rlDim 3.2s ease infinite}
+.rl-once.run .rl-sw{animation:rlSweep1 1.8s cubic-bezier(.45,.05,.4,1) both}
+.rl-once.run .rl-beam{animation:rlSweep1 1.8s cubic-bezier(.45,.05,.4,1) both,rlBeam1 1.8s linear both}
+.rl-once.run .rl-base{animation:rlDim1 1.8s ease both}
+@keyframes rlSweep{0%{transform:rotate(-4deg)}62%,100%{transform:rotate(140deg)}}
+@keyframes rlBeam{0%,50%{opacity:1}62%,100%{opacity:0}}
+@keyframes rlDim{0%{opacity:1}8%,55%{opacity:.5}72%,100%{opacity:1}}
+@keyframes rlSweep1{0%{transform:rotate(-4deg)}100%{transform:rotate(140deg)}}
+@keyframes rlBeam1{0%,82%{opacity:1}100%{opacity:0}}
+@keyframes rlDim1{0%{opacity:1}12%,82%{opacity:.5}100%{opacity:1}}
 </style>
 
 <div dir="rtl" lang="ar">
 
-<div id="loader" aria-hidden="true"><div class="ld-in"><img src="{{LOGO}}" alt=""><div class="ld-line"><i></i></div></div></div>
+{{LOGO_SPRITE}}
+<div id="loader" aria-hidden="true"><div class="ld-in">{{RL:ld:white:loop}}<div class="ld-line"><i></i></div></div></div>
 
 <header class="nav" id="nav"><div class="wrap">
-  <a class="brand" href="#top" aria-label="رسين"><img src="{{LOGO}}" alt="رسين"></a>
+  <a class="brand" href="#top" aria-label="رسين">{{RL:hd:white:once}}</a>
   <nav class="links"><a href="#features">المزايا</a><a href="#example">دراسة حالة</a><a href="#ai">الذكاء الاصطناعي</a><a href="#who">لمن رسين</a><a href="#faq">الأسئلة</a></nav>
   <div class="nav-end">
     <a class="login" href="#app" data-app>تسجيل الدخول</a>
@@ -545,7 +565,7 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
     </div>
     <div class="orbit" aria-hidden="true">
       <canvas id="orb"></canvas>
-      <div class="logo-disc" id="disc"><span class="halo"></span><span class="ripple"></span><img src="{{LOGO_DARK}}" alt="شعار رسين"></div>
+      <div class="logo-disc" id="disc"><span class="halo"></span><span class="ripple"></span>{{RL:disc:navy:loop}}</div>
     </div>
   </div>
   <div class="scroll-cue"><i></i>اكتشف المزيد</div>
@@ -986,7 +1006,7 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
   if(reduce){loader.remove();}
   else{
     gsap.timeline({delay:.15})
-      .from('#loader img',{y:16,opacity:0,duration:.8,ease:'expo.out'})
+      .from('#loader .rl',{y:16,opacity:0,duration:.8,ease:'expo.out'})
       .to('#loader .ld-line i',{scaleX:1,duration:.9,ease:'power2.inOut'},.2)
       .to('#loader .ld-in',{y:-20,opacity:0,duration:.45,ease:'power2.in'},1.15)
       .to(loader,{yPercent:-100,duration:1,ease:'expo.inOut',onComplete:function(){loader.remove();}},1.3)
@@ -1019,3 +1039,4 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
   }
 })();
 </script>
+{{RL_JS}}

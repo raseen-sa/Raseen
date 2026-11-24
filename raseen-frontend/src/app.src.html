@@ -28,7 +28,7 @@ img{display:block;max-width:100%}
 /* ---------- login */
 #login{position:fixed;inset:0;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);z-index:60;background:#fff}
 .lg-art{background:var(--navy);color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:40px 48px}
-.lg-art img{width:170px}
+.lg-art img,.lg-art .rl{width:170px}
 .lg-art h2{font-size:34px;line-height:1.45;margin:0;font-weight:700;max-width:16ch;position:relative;z-index:1}
 .lg-art p{color:var(--on-2);margin:12px 0 0;max-width:42ch;position:relative;z-index:1}
 .orb{position:absolute;inset-inline-start:-140px;top:50%;width:560px;height:560px;margin-top:-300px;pointer-events:none}
@@ -311,7 +311,7 @@ input:focus{border-color:var(--teal);background:#fff}
 .snav{position:fixed;inset:0 0 auto;z-index:50;transition:background .35s var(--ease),box-shadow .35s}
 .snav.solid{background:rgba(11,36,50,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line-d)}
 .swrap{max-width:1240px;margin:0 auto;padding-inline:24px;height:72px;display:flex;align-items:center;gap:32px}
-.sbrand img{height:42px;width:auto}
+.sbrand img,.sbrand .rl{height:42px;width:auto}
 .slinks{display:flex;gap:26px}
 .slinks a{font-size:15px;color:var(--on-2);transition:color .2s;position:relative;display:flex;align-items:center;gap:6px;padding-block:6px}
 .slinks a:hover{color:#fff}
@@ -1012,7 +1012,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
 @media (min-width:1001px){
   .sside{display:flex;flex-direction:column;position:fixed;inset-block:0;inset-inline-start:0;width:240px;z-index:51;background:var(--navy);border-inline-end:1px solid var(--line-d);overflow-y:auto}
   .sbrand2{display:flex;align-items:center;height:72px;padding-inline:24px;border-bottom:1px solid var(--line-d);flex:none}
-  .sbrand2 img{height:42px;width:auto}
+  .sbrand2 img,.sbrand2 .rl{height:42px;width:auto}
   .sside nav{display:flex;flex-direction:column;gap:2px;padding:16px 12px 24px}
   .sside nav b{font-size:12px;font-weight:500;color:rgba(255,255,255,.45);padding:20px 12px 6px}
   .sside nav a{display:flex;align-items:center;gap:8px;height:40px;padding-inline:12px;border-radius:10px;font-size:14.5px;color:var(--on-2);position:relative;transition:background .2s,color .2s}
@@ -1029,6 +1029,25 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
 .embed .band{height:290px}
 .embed .page{padding-top:40px}
 @media (max-width:700px){.embed .band{height:250px}.embed .page{padding-top:28px}}
+
+/* logo radar (Nov 24): the word stays still; a sweep lights the waves. loop = repeats, once = on load and on hover */
+.rl{display:block;overflow:visible;aspect-ratio:472/158}
+.rl .rl-sw{transform-box:view-box;transform-origin:710px 388px;transform:rotate(-60deg)}
+.rl .rl-beam{fill:#2FB3A3;fill-opacity:.15}
+.rl .rl-beam path{fill-opacity:inherit}
+.rl .rl-beam .e{stroke:var(--ink);stroke-width:1.4;stroke-linecap:round;opacity:.55}
+.rl-loop .rl-sw{animation:rlSweep 3.2s cubic-bezier(.45,.05,.4,1) infinite}
+.rl-loop .rl-beam{animation:rlSweep 3.2s cubic-bezier(.45,.05,.4,1) infinite,rlBeam 3.2s linear infinite}
+.rl-loop .rl-base{animation:rlDim 3.2s ease infinite}
+.rl-once.run .rl-sw{animation:rlSweep1 1.8s cubic-bezier(.45,.05,.4,1) both}
+.rl-once.run .rl-beam{animation:rlSweep1 1.8s cubic-bezier(.45,.05,.4,1) both,rlBeam1 1.8s linear both}
+.rl-once.run .rl-base{animation:rlDim1 1.8s ease both}
+@keyframes rlSweep{0%{transform:rotate(-4deg)}62%,100%{transform:rotate(140deg)}}
+@keyframes rlBeam{0%,50%{opacity:1}62%,100%{opacity:0}}
+@keyframes rlDim{0%{opacity:1}8%,55%{opacity:.5}72%,100%{opacity:1}}
+@keyframes rlSweep1{0%{transform:rotate(-4deg)}100%{transform:rotate(140deg)}}
+@keyframes rlBeam1{0%,82%{opacity:1}100%{opacity:0}}
+@keyframes rlDim1{0%{opacity:1}12%,82%{opacity:.5}100%{opacity:1}}
 </style>
 
 <div dir="rtl" lang="ar">
@@ -1061,10 +1080,11 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
   <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10"/></symbol>
 </svg>
 
+{{LOGO_SPRITE}}
 <!-- ============ LOGIN ============ -->
 <div id="login">
   <div class="lg-art">
-    <img src="{{LOGO}}" alt="رسين">
+    {{RL:lg:white:loop}}
     <div class="orb" aria-hidden="true"><i></i><i></i><i></i><span class="core"></span><b id="o1"></b><b id="o2"></b><b class="y" id="o3"></b></div>
     <div>
       <h2>كل خبر، من أول مصدر، في موجز واحد</h2>
@@ -1087,7 +1107,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
 <!-- ============ APP ============ -->
 <div class="shell" id="app">
   <header class="snav" id="snav"><div class="swrap">
-    <a class="sbrand" href="#home" aria-label="رسين"><img class="lw" src="{{LOGO}}" alt="رسين"><img class="ld" src="{{LOGO_DARK}}" alt=""></a>
+    <a class="sbrand" href="#home" aria-label="رسين">{{RL:tw:white:once:lw}}{{RL:tn:navy:once:ld}}</a>
     <nav class="slinks" id="nav">
       <a href="#home" data-v="home">الرئيسية</a>
       <a href="#setup" data-v="setup">الرصد</a>
@@ -1122,7 +1142,7 @@ a.pc{transition:box-shadow .2s,transform .2s}a.pc:hover{box-shadow:0 0 0 1px var
     </div>
   </div></header>
   <aside class="sside" id="sside" aria-label="أقسام المنصة">
-    <a class="sbrand2" href="#home" aria-label="رسين"><img src="{{LOGO}}" alt="رسين"></a>
+    <a class="sbrand2" href="#home" aria-label="رسين">{{RL:sb:white:once}}</a>
     <nav>
       <a href="#home" data-v="home"><svg class="si"><use href="#i-home"/></svg>الرئيسية</a>
       <div class="grp"><button type="button" class="sg" aria-expanded="false" aria-controls="sg1"><svg class="si"><use href="#i-radar"/></svg><span>الرصد والفرز الذكي</span><svg class="chv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><div class="sub" id="sg1"><div class="in">
@@ -2255,3 +2275,4 @@ addEventListener('hashchange',function(){if(location.hash==='#story'&&L.on&&!L.c
 ready.then(function(){if(location.hash==='#story'&&L.on&&L.stories[0])openStory(L.stories[0].id)});
 })();
 </script>
+{{RL_JS}}

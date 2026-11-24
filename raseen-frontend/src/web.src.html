@@ -483,16 +483,32 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 #who .mi.r{width:280px;background:transparent}#who .mi.r.now{box-shadow:inset 0 0 0 1.5px var(--mustard)}#who .mi.r.now small{color:var(--mustard)}
 @media (max-width:640px){#who .mi{width:270px}#who .mi.r{width:230px}}
 
-/* AI engine: orbit panel (Nov 21) */
-#ai .orb{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:center;background:var(--navy);border-radius:24px;padding:clamp(20px,4vw,48px);color:#fff}
-#ai .orb svg{width:100%;max-width:440px;height:auto;display:block;margin:auto;font-family:inherit}
-#ai .olist{display:flex;flex-direction:column;gap:4px}
-#ai .oit{all:unset;cursor:pointer;padding:14px 18px;border-radius:14px;color:var(--on-2);transition:background .3s}
-#ai .oit b{display:block;color:#fff;font-size:17px;font-weight:600}
-#ai .oit p{margin:4px 0 0;font-size:14px;line-height:1.7;display:none}
-#ai .oit.on{background:var(--navy-2);box-shadow:inset 0 0 0 1px var(--line-d)}#ai .oit.on p{display:block}#ai .oit.on b{color:#3CC8CF}
-#ai .oit:focus-visible{outline:2px solid var(--mustard)}
-@media (max-width:760px){#ai .orb{grid-template-columns:1fr}}
+/* AI engine: radar (Nov 24). Each layer's name sits level with its point on the radar and a thin line joins them, so the drawing and the words read as one piece. */
+#ai .orb{background:var(--navy,#0B2432);border-radius:24px;padding:clamp(18px,4vw,44px);color:#fff}
+#ai .rad{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px) minmax(0,1fr);gap:0;align-items:stretch}
+#ai .rad>svg.rs{width:100%;height:auto;display:block}
+#ai .rad svg text{font-family:inherit}
+#ai .side{position:relative;min-width:0}
+#ai .wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+#ai .lb{all:unset;cursor:pointer;position:absolute;top:var(--y);width:min(260px,100%);transform:translateY(-15px);display:grid;grid-template-columns:auto 1fr;gap:0 10px;align-items:baseline;box-sizing:border-box}
+#ai .side.r .lb{left:28px}
+#ai .side.l .lb{right:28px}
+#ai .lb .n{font-size:13px;color:rgba(255,255,255,.5);font-variant-numeric:tabular-nums;transition:color .3s}
+#ai .lb b{font-weight:600;font-size:16px;line-height:30px;color:rgba(255,255,255,.7);transition:color .3s}
+#ai .lb p{grid-column:2;margin:0;font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.62);max-height:0;opacity:0;overflow:hidden;transition:max-height .45s ease,opacity .45s}
+#ai .lb.on .n{color:#F0B429}#ai .lb.on b{color:#fff}#ai .lb.on p{max-height:72px;opacity:1}
+#ai .bn{display:none}
+#ai .lb:focus-visible{outline:2px solid #F0B429;outline-offset:4px;border-radius:6px}
+@media (max-width:860px){
+  #ai .rad{display:flex;flex-direction:column;gap:12px}
+  #ai .rad>svg.rs{order:-1;max-width:340px;margin:0 auto 8px}
+  #ai .side{display:contents}
+  #ai .wires{display:none}
+  #ai .bn{display:inline}
+  #ai .lb{position:static;transform:none;width:auto;order:var(--o)}
+}
+
+
 
 /* problem: one-column head, survey label right above the panel, bigger labels with counts (Nov 21) */
 #problem .prob{grid-template-columns:minmax(0,1fr);gap:0}
@@ -683,10 +699,11 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 <!-- AI engine -->
 <section class="band" id="ai"><div class="wrap">
   <div class="head"><h2 class="h2 rv">محرك ذكاء اصطناعي مبني للمحتوى العربي</h2><p class="lede rv">ست طبقات تعمل معًا، من جمع الخبر إلى التوصية.</p></div>
-  <div class="orb rv">
-    <svg viewBox="0 0 400 400" id="orbS" aria-hidden="true"></svg>
-    <div class="olist" id="orbL"></div>
-  </div>
+  <div class="orb rv"><div class="rad">
+    <div class="side r" id="aR"></div>
+    <svg class="rs" viewBox="0 0 400 400" id="svA" aria-hidden="true"></svg>
+    <div class="side l" id="aL"></div>
+  </div></div>
 </div></section>
 
 <!-- audience + roadmap (merged; Swiss lines, no cards, Nov 21) -->
@@ -893,25 +910,50 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
       T.forEach(function(o){var l=o.v/100*k,s=t/600+o.ph;o.a.setAttribute('d',wp(l+.02,s*1.3,7,180));o.b.setAttribute('d',wp(l,s,6,200));o.n.textContent=(o.v*k).toFixed(1)})}
       requestAnimationFrame(f)})(0);
   })();
-  // ---------- AI engine: Raseen at the centre, six layers on one orbit (Orbit option, Nov 21; orbit motif from the team deck)
+  // ---------- AI engine: radar (Nov 24). The new logo mark in the middle; the sweep turns clockwise and finds each of the six layers.
   (function(){
-    var O=document.getElementById('orbS'),Ol=document.getElementById('orbL'); if(!O) return;
-    var Ly=[['جمع البيانات الذكي','يسحب المحتوى من الأخبار والمنصات لحظة نشره.'],['معالجة اللغة العربية','يفهم الفصحى واللهجات، لا الكلمات المفتاحية فقط.'],['تصنيف المحتوى','يجمع الأخبار المتشابهة في قصة ويصنّفها حسب الموضوع.'],['تحليل المشاعر','يقيس اتجاه الحديث: إيجابي أو سلبي أو محايد.'],['اكتشاف الأنماط','يلاحظ الانتشار غير الطبيعي والحسابات المترابطة.'],['التنبؤ والتوصيات','ينبّه بالقضايا الصاعدة ويقترح الخطوة التالية.']];
-    var NS='http://www.w3.org/2000/svg';function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e}
-    O.appendChild(el('circle',{cx:200,cy:200,r:150,fill:'none',stroke:'rgba(255,255,255,.12)'}));
-    O.appendChild(el('circle',{cx:200,cy:200,r:100,fill:'none',stroke:'rgba(255,255,255,.08)','stroke-dasharray':'2 6'}));
-    var link=el('line',{x1:200,y1:200,x2:200,y2:50,stroke:'#D5AD25','stroke-width':1.5,'stroke-dasharray':'4 4'});O.appendChild(link);
-    O.appendChild(el('circle',{cx:200,cy:200,r:52,fill:'#168B92'}));
-    var ct=el('text',{x:200,y:208,'text-anchor':'middle',fill:'#fff','font-size':'24','font-weight':'800'});ct.textContent='رسين';O.appendChild(ct);
-    var cur=0,hold=0,vis=false;
-    var nodes=Ly.map(function(l,i){var g=el('g',{}),c=el('circle',{r:14,fill:'#0F2D3D',stroke:'#3CC8CF','stroke-width':1.5}),t=el('text',{'text-anchor':'middle',y:5,fill:'#fff','font-size':'12','font-weight':'700'});
-      t.textContent=i+1;g.appendChild(c);g.appendChild(t);O.appendChild(g);
-      var b=document.createElement('button');b.type='button';b.className='oit';b.innerHTML='<b>'+(i+1)+'. '+l[0]+'</b><p>'+l[1]+'</p>';b.addEventListener('click',function(){cur=i;hold=2;mark()});Ol.appendChild(b);return c});
-    function mark(){nodes.forEach(function(c,j){var on=j===cur;c.setAttribute('fill',on?'#D5AD25':'#0F2D3D');c.setAttribute('stroke',on?'#D5AD25':'#3CC8CF');c.setAttribute('r',on?20:14)});Ol.querySelectorAll('.oit').forEach(function(b,j){b.classList.toggle('on',j===cur)})}
-    mark();
-    new IntersectionObserver(function(e){vis=e[0].isIntersecting},{threshold:.3}).observe(O);
-    (function f(t){var rot=t/18000;nodes.forEach(function(c,i){var a=-Math.PI/2+i*Math.PI/3+rot,x=200+150*Math.cos(a),y=200+150*Math.sin(a);c.parentNode.setAttribute('transform','translate('+x.toFixed(1)+','+y.toFixed(1)+')');if(i===cur){link.setAttribute('x2',x.toFixed(1));link.setAttribute('y2',y.toFixed(1))}});requestAnimationFrame(f)})(0);
-    setInterval(function(){if(!vis)return;if(hold>0){hold--;return}cur=(cur+1)%6;mark()},2600);
+    var S=document.getElementById('svA'); if(!S) return;
+    var L=[['جمع البيانات الذكي','يسحب المحتوى من الأخبار والمنصات لحظة نشره.'],['معالجة اللغة العربية','يفهم الفصحى واللهجات، لا الكلمات المفتاحية فقط.'],['تصنيف المحتوى','يجمع الأخبار المتشابهة في قصة ويصنّفها حسب الموضوع.'],['تحليل المشاعر','يقيس اتجاه الحديث: إيجابي أو سلبي أو محايد.'],['اكتشاف الأنماط','يلاحظ الانتشار غير الطبيعي والحسابات المترابطة.'],['التنبؤ والتوصيات','ينبّه بالقضايا الصاعدة ويقترح الخطوة التالية.']];
+    var DUR=2800,NS='http://www.w3.org/2000/svg',cx=200,cy=200,R=170,rad=S.parentNode;
+    function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+    function arc(r,a0,a1){var p=function(a){return [r*Math.cos(a),r*Math.sin(a)]},s=p(a0),e=p(a1);return 'M'+s[0].toFixed(2)+' '+s[1].toFixed(2)+'A'+r+' '+r+' 0 0 1 '+e[0].toFixed(2)+' '+e[1].toFixed(2)}
+    [62,116,R].forEach(function(r){el('circle',{cx:cx,cy:cy,r:r,fill:'none',stroke:'rgba(255,255,255,'+(r===R?.16:.07)+')'},S)});
+    el('line',{x1:cx-R,y1:cy,x2:cx+R,y2:cy,stroke:'rgba(255,255,255,.05)'},S);el('line',{x1:cx,y1:cy-R,x2:cx,y2:cy+R,stroke:'rgba(255,255,255,.05)'},S);
+    for(var t=0;t<72;t++){var a=t*Math.PI/36,r1=t%6?R-5:R-11;el('line',{x1:(cx+r1*Math.cos(a)).toFixed(1),y1:(cy+r1*Math.sin(a)).toFixed(1),x2:(cx+R*Math.cos(a)).toFixed(1),y2:(cy+R*Math.sin(a)).toFixed(1),stroke:'rgba(255,255,255,.18)'},S)}
+    var sw=el('g',{},S);
+    for(var k=0;k<36;k++){var a0=-k*1.2*Math.PI/180,a1=-(k+1)*1.2*Math.PI/180;el('path',{d:'M'+cx+' '+cy+'L'+(cx+R*Math.cos(a1)).toFixed(2)+' '+(cy+R*Math.sin(a1)).toFixed(2)+'A'+R+' '+R+' 0 0 1 '+(cx+R*Math.cos(a0)).toFixed(2)+' '+(cy+R*Math.sin(a0)).toFixed(2)+'Z',fill:'#2FB3A3','fill-opacity':(0.22*(1-k/36)).toFixed(3)},sw)}
+    el('line',{x1:cx,y1:cy,x2:cx+R,y2:cy,stroke:'#2FB3A3','stroke-width':1.5},sw);
+    // centre: the logo mark, still (only the sweep moves)
+    el('circle',{cx:cx,cy:cy,r:50,fill:'#0B2432'},S);
+    var m=el('g',{transform:'translate('+(cx-17)+','+(cy+17)+')'},S);
+    el('circle',{cx:0,cy:0,r:8,fill:'#fff'},m);
+    [[17,'#fff'],[30,'#2FB3A3'],[43,'#F0B429']].forEach(function(q){el('path',{d:arc(q[0],-Math.PI/2,0),fill:'none',stroke:q[1],'stroke-width':6,'stroke-linecap':'round'},m)});
+    // 1-3 on the right (upper, middle, lower), 6-4 on the left: the order a clockwise sweep meets them
+    var ANG=[-55,0,55,125,180,235],RAD=[140,100,140,140,100,140];
+    var pos=ANG.map(function(d,i){var a=d*Math.PI/180;return {a:d,x:cx+RAD[i]*Math.cos(a),y:cy+RAD[i]*Math.sin(a)}});
+    var blips=pos.map(function(p,i){var g=el('g',{transform:'translate('+p.x.toFixed(1)+','+p.y.toFixed(1)+')'},S);
+      var n=el('text',{'class':'bn',x:(i<3?13:-13),y:4,'text-anchor':(i<3?'start':'end'),fill:'rgba(255,255,255,.55)','font-size':12,'font-weight':700},g);n.textContent=i+1;
+      return {ping:el('circle',{r:6,fill:'none',stroke:'#F0B429','stroke-width':1.5,opacity:0},g),dot:el('circle',{r:4,fill:'#3CC8CF'},g)}});
+    // names: level with their point, joined to it by a thin line
+    var sides={r:rad.querySelector('.side.r'),l:rad.querySelector('.side.l')},W=el('svg',{'class':'wires'},null);rad.insertBefore(W,rad.firstChild);
+    var lbs=L.map(function(l,i){var b=document.createElement('button');b.type='button';b.className='lb';b.style.setProperty('--y',(pos[i].y/4).toFixed(2)+'%');b.style.setProperty('--o',i);
+      b.innerHTML='<span class="n">0'+(i+1)+'</span><b>'+l[0]+'</b><p>'+l[1]+'</p>';b.addEventListener('click',function(){go(i)});(i<3?sides.r:sides.l).appendChild(b);return b});
+    var wires=L.map(function(){return el('line',{stroke:'rgba(60,200,207,.28)','stroke-width':1},W)});
+    function wire(){var rb=rad.getBoundingClientRect(),sb=S.getBoundingClientRect(),k=sb.width/400;
+      lbs.forEach(function(b,i){var bb=b.getBoundingClientRect(),w=wires[i];
+        w.setAttribute('x1',(i<3?bb.left-rb.left-6:bb.right-rb.left+6).toFixed(1));w.setAttribute('x2',(sb.left-rb.left+pos[i].x*k+(i<3?9:-9)).toFixed(1));
+        var y=(sb.top-rb.top+pos[i].y*k).toFixed(1);w.setAttribute('y1',y);w.setAttribute('y2',y)})}
+    addEventListener('resize',wire);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(wire);setTimeout(wire,50);
+    var cur=-1,ang=pos[0].a,last=0,hold=0;
+    function pingRun(c){var t0=performance.now();(function f(t){var k=Math.min(1,(t-t0)/1100);c.setAttribute('r',(6+22*k).toFixed(1));c.setAttribute('opacity',(0.9*(1-k)).toFixed(2));if(k<1)requestAnimationFrame(f)})(t0)}
+    function light(i){cur=i;lbs.forEach(function(b,j){b.classList.toggle('on',j===i)});
+      wires.forEach(function(w,j){w.setAttribute('stroke',j===i?'#F0B429':'rgba(60,200,207,.28)')});
+      blips.forEach(function(b,j){var on=j===i;b.dot.setAttribute('fill',on?'#F0B429':'#3CC8CF');b.dot.setAttribute('r',on?6.5:4);if(on)pingRun(b.ping)})}
+    function go(i){ang=pos[i].a;light(i);hold=performance.now()+DUR}
+    light(0);
+    var vis=true;if('IntersectionObserver' in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting},{threshold:.15}).observe(S);
+    (function f(t){var dt=last?Math.min(60,t-last):0;last=t;if(vis){if(t>hold)ang+=360*dt/(DUR*6);var a=((ang%360)+360)%360;sw.setAttribute('transform','rotate('+a.toFixed(2)+' '+cx+' '+cy+')');
+      for(var i=0;i<6;i++){var d=((a-((pos[i].a%360)+360)%360)+360)%360;if(d<4&&cur!==i)light(i)}}requestAnimationFrame(f)})(0);
   })();
 
   // ---------- hero app: the live feed keeps receiving stories

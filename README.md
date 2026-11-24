@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="raseen-frontend/assets/logo-navy.svg" alt="رسين RASEEN" width="260">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="raseen-frontend/assets/logo-white.svg">
+    <img src="raseen-frontend/assets/logo-navy.svg" alt="رسين RASEEN" width="260">
+  </picture>
 </p>
 
 <h3 align="center">منصة ذكاء إعلامي للرصد والتحليل واتخاذ القرار</h3>

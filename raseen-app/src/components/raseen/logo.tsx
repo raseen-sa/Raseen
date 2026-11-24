@@ -1,10 +1,7 @@
 import { cn } from "@/lib/utils";
-import logoAsset from "@/assets/raseen-logo.png.asset.json";
-import logoLightAsset from "@/assets/raseen-logo-light.png.asset.json";
-import markAsset from "@/assets/raseen-mark.png.asset.json";
-import markLightAsset from "@/assets/raseen-mark-light.png.asset.json";
 
-export const raseenLogoUrl = logoAsset.url;
+// new identity (Nov 24): dot + broadcast waves; files live in public/brand
+export const raseenLogoUrl = "/brand/raseen-logo-navy.png";
 
 export function RaseenMark({
   className,
@@ -19,7 +16,7 @@ export function RaseenMark({
       className={cn("grid size-9 shrink-0 place-items-center p-1", className)}
     >
       <img
-        src={invert ? markLightAsset.url : markAsset.url}
+        src={invert ? "/brand/raseen-mark-white.png" : "/brand/raseen-mark-navy.png"}
         alt=""
         className="h-full w-full object-contain"
       />

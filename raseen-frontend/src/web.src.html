@@ -1,4 +1,5 @@
 <title>رسين Raseen</title>
+<link rel="icon" type="image/svg+xml" href="{{FAVICON}}">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +50,7 @@ section{position:relative}
 #loader{position:fixed;inset:0;z-index:100;background:var(--navy);display:grid;place-items:center;animation:ldfail .01s 6s forwards}
 @keyframes ldfail{to{opacity:0;visibility:hidden}}
 .ld-in{display:flex;flex-direction:column;align-items:center;gap:28px}
-.ld-in img{width:150px}
+.ld-in img{width:200px}
 .ld-line{width:150px;height:2px;background:rgba(255,255,255,.1);overflow:hidden;border-radius:1px}
 .ld-line i{display:block;height:100%;background:linear-gradient(to left,var(--teal-2),var(--mustard));transform:scaleX(0);transform-origin:right}
 
@@ -57,7 +58,7 @@ section{position:relative}
 .nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .35s var(--ease),box-shadow .35s}
 .nav.solid{background:rgba(11,36,50,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line-d)}
 .nav .wrap{height:72px;display:flex;align-items:center;gap:32px}
-.brand img{height:38px;width:auto}
+.brand img{height:44px;width:auto}
 .links{display:flex;gap:28px;margin-inline-start:16px}
 .links a{font-size:15px;color:var(--on-2);transition:color .2s}
 .links a:hover{color:#fff}
@@ -90,7 +91,7 @@ section{position:relative}
   background:radial-gradient(circle at 50% 30%,#FFFFFF 0%,#F7FAF9 55%,#E6EEEC 100%);
   box-shadow:inset 0 -10px 24px rgba(11,36,50,.08),0 0 0 7px var(--navy),0 0 0 8.5px rgba(60,200,207,.6),0 0 60px 6px rgba(22,139,146,.28),0 30px 60px rgba(0,0,0,.4)}
 .logo-disc:after{content:"";position:absolute;inset:6%;border-radius:50%;border:1px solid rgba(22,139,146,.16)}
-.logo-disc img{width:66%;height:auto;position:relative;z-index:1}
+.logo-disc img{width:78%;height:auto;position:relative;z-index:1}
 .logo-disc .ripple{position:absolute;inset:0;border-radius:50%;border:2px solid var(--mustard);opacity:0;pointer-events:none}
 .logo-disc .halo{position:absolute;inset:-26px;border-radius:50%;border:1px dashed rgba(60,200,207,.35);animation:spin 40s linear infinite}
 .logo-disc .halo:before{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--mustard)}
@@ -377,7 +378,7 @@ sup.r{font-size:11px;color:var(--teal-2);font-weight:700}
 @keyframes spin{to{transform:rotate(360deg)}}
 footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-top:-1px}
 .ft{display:grid;grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr));gap:40px}
-.ft img{height:44px;width:auto;margin-bottom:16px}
+.ft img{height:50px;width:auto;margin-bottom:16px}
 .ft p{margin:0;max-width:36ch;font-size:15px}
 .ft h6{margin:0 0 14px;font-size:14px;color:#fff;font-weight:600}
 .ft a{display:block;padding:4px 0;font-size:15px}

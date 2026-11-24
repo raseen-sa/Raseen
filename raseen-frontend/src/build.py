@@ -2,8 +2,10 @@
 import base64
 def R(s,a,b):
     assert s.count(a)==1,(a[:70],s.count(a)); return s.replace(a,b)
-logo=lambda f:'data:image/png;base64,'+base64.b64encode(open(f,'rb').read()).decode()
-LW,LD=logo('../assets/logo-white.png'),logo('../assets/logo-navy.png')
+# the logo (new identity, Nov 24): vector files from the brand guidelines, white on navy and navy on light
+logo=lambda f:'data:image/svg+xml;base64,'+base64.b64encode(open(f,'rb').read()).decode()
+LW,LD=logo('../assets/logo-white.svg'),logo('../assets/logo-navy.svg')
+FAV=logo('../assets/favicon.svg')
 
 # ---------- platform: talk to the website when it runs inside it
 a=open('app.src.html').read()
@@ -18,7 +20,7 @@ document.addEventListener('click',function(e){var x=e.target.closest('[data-exit
 
 /* ---- routing */""")
     open('app.src.html','w').write(a)
-app=a.replace('{{LOGO_DARK}}',LD).replace('{{LOGO}}',LW)
+app=a.replace('{{LOGO_DARK}}',LD).replace('{{LOGO}}',LW).replace('{{FAVICON}}',FAV)
 open('app.html','w').write(app)
 doc='<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>'+app+'</body></html>'
 
@@ -57,6 +59,6 @@ if 'appLayer' not in s:
 
   // marquee: duplicate the row so it loops without a gap''')
     open('web.src.html','w').write(s)
-out=s.replace('{{LOGO_DARK}}',LD).replace('{{LOGO}}',LW).replace('{{APP}}',doc.replace('</script>','<\\/script>'))
+out=s.replace('{{LOGO_DARK}}',LD).replace('{{LOGO}}',LW).replace('{{FAVICON}}',FAV).replace('{{APP}}',doc.replace('</script>','<\\/script>'))
 open('raseen.html','w').write(out)
 print('ok',len(out))

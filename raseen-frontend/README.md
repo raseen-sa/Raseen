@@ -12,7 +12,7 @@ The frontend prototype for Raseen: the marketing website and the platform, combi
 | `src/web.src.html` | مصدر الموقع |
 | `src/app.src.html` | مصدر المنصة |
 | `src/build.py` | يبني `app.html` و`raseen.html` من المصادر (`python3 build.py` داخل `src/`) |
-| `assets/` | شعار رسين: الأبيض والكحلي مع النجمة |
+| `assets/` | شعار رسين الجديد (النقطة والموجات): `logo-white` للخلفيات الداكنة و`logo-navy` للفاتحة (SVG وPNG)، والرمز وحده `mark-*`، وأيقونة المتصفح `favicon` |
 
 ## شاشات المنصة
 
@@ -57,4 +57,5 @@ The frontend prototype for Raseen: the marketing website and the platform, combi
 
 - البيانات الحالية توضيحية: الشركة «نخلة للاتصالات» افتراضية، وفهم الموضوع في شاشة المدار من قاعدة أمثلة صغيرة.
 - عند ربط الباك إند، تُستبدل دالة `kb()` في `app.src.html` باستدعاء API، وكذلك بيانات القصص `S` والرادار `buildRadar()`.
-- الشعارات مضمّنة base64 داخل `index.html` و`platform.html`. في المصادر هي متغيرات `{{LOGO}}` و`{{LOGO_DARK}}`.
+- الشعارات مضمّنة base64 (SVG) داخل `index.html` و`platform.html`. في المصادر هي متغيرات `{{LOGO}}` و`{{LOGO_DARK}}` و`{{FAVICON}}`.
+- ألوان الشعار من دليل الهوية: كحلي `#0A2331`، زمردي `#2FB3A3`، ذهبي `#F0B429`.

@@ -278,6 +278,22 @@ section{position:relative}
 .pl-ctl{display:flex;align-items:center;gap:12px;margin-top:28px}
 .pl-ctl small{color:var(--on-3)}
 .player .cw{box-shadow:none;background:var(--navy);padding:20px}
+/* merged features + case study (Nov 24): narration is a header row over the dashboard */
+#example .pl-body{grid-template-columns:minmax(0,1fr);gap:22px}
+#example .pl-body>div:first-child{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+#example .nar{min-height:0;flex:1 1 420px}
+#example .nar h3{font-size:clamp(21px,2.4vw,28px);margin:2px 0 6px}
+#example .pl-ctl{margin-top:0;flex-direction:row-reverse}
+#example .pl-ctl small{font-size:12.5px}
+#example .pst .sm{display:none}
+@media (min-width:861px){
+  #example .cw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:14px 18px;align-items:start}
+  #example .cw>.cw-h,#example .cw>.kpis{grid-column:1/-1}
+  #example .cw>.ev{grid-column:1;grid-row:3;margin:0}
+  #example .cw>.chart{grid-column:2;grid-row:3}
+  #example .cw>.ready{grid-column:1/-1;justify-self:start}
+}
+@media (max-width:720px){#example .pst .lg{display:none}#example .pst .sm{display:inline}}
 .tl{list-style:none;margin:0;padding:0;position:relative}
 .tl:before{content:"";position:absolute;inset-inline-start:7px;top:10px;bottom:10px;width:2px;background:rgba(255,255,255,.1)}
 .tl .bar{position:absolute;inset-inline-start:7px;top:10px;width:2px;height:0;background:var(--teal-2)}
@@ -570,14 +586,14 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 
 <header class="nav" id="nav"><div class="wrap">
   <a class="brand" href="#top" aria-label="رسين">{{RL:hd:white:once}}</a>
-  <nav class="links"><a href="#features">المزايا</a><a href="#example">دراسة حالة</a><a href="#ai">الذكاء الاصطناعي</a><a href="#who">لمن رسين</a><a href="#faq">الأسئلة</a></nav>
+  <nav class="links"><a href="#example">المزايا</a><a href="#ai">الذكاء الاصطناعي</a><a href="#who">لمن رسين</a><a href="#faq">الأسئلة</a></nav>
   <div class="nav-end">
     <a class="login" href="#app" data-app>تسجيل الدخول</a>
     <a class="btn y sm" href="#cta">اطلب عرضًا</a>
     <button class="menu-b" id="menuB" aria-label="القائمة" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
 </div></header>
-<nav class="sheet" id="sheet"><a href="#features">المزايا</a><a href="#example">دراسة حالة</a><a href="#ai">الذكاء الاصطناعي</a><a href="#who">لمن رسين</a><a href="#faq">الأسئلة</a><a href="#app" data-app>تسجيل الدخول</a></nav>
+<nav class="sheet" id="sheet"><a href="#example">المزايا</a><a href="#ai">الذكاء الاصطناعي</a><a href="#who">لمن رسين</a><a href="#faq">الأسئلة</a><a href="#app" data-app>تسجيل الدخول</a></nav>
 
 <!-- hero -->
 <section class="hero" id="top">
@@ -622,62 +638,15 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 </div></section>
 
 <!-- features -->
-<section class="band white" id="features"><div class="wrap">
-  <div class="head"><h2 class="h2 rv">من عشرات الأخبار إلى موجز واحد موثّق</h2><p class="lede rv">أربع مهام كانت تأخذ ساعات من فريقك، يقوم بها رسين في دقائق.</p></div>
-  <div class="feat rv">
-    <div class="tabs" role="tablist" id="tabs"><button class="tab on" role="tab"><span class="fn">1</span><b>يجمع المكرر في قصة واحدة</b><span class="pr"><i></i></span></button><button class="tab" role="tab"><span class="fn">2</span><b>يتتبع أول مصدر</b><span class="pr"><i></i></span></button><button class="tab" role="tab"><span class="fn">3</span><b>يفرّق بين الادعاء والمعلومة</b><span class="pr"><i></i></span></button><button class="tab" role="tab"><span class="fn">4</span><b>يجهّز الموجز</b><span class="pr"><i></i></span></button></div>
-    <div class="show" id="show">
-      <div class="pane on">
-        <p class="cap">بدلًا من قراءة 87 خبرًا عن الموضوع نفسه، تطّلع على قصة واحدة تبيّن حجم انتشاره ومن نشره.</p>
-        <ul class="heads">
-          <li>«نخلة سترفع أسعار الباقات 40% الشهر القادم»<em>حساب على X</em></li>
-          <li>مصادر: زيادة مرتقبة في أسعار باقات نخلة<em>موقع إخباري</em></li>
-          <li>هل سترتفع أسعار نخلة؟ متابعون يتساءلون<em>تيك توك</em></li>
-          <li>أنباء عن رفع أسعار باقات الاتصالات<em>صحيفة إلكترونية</em></li>
-          <li>نخلة ترفع الأسعار 40%... ما الحقيقة؟<em>يوتيوب</em></li>
-        </ul>
-        <div class="story"><div><b>قصة واحدة: ادعاء رفع أسعار نخلة</b><small>من 31 مصدرًا، أولها 07:42</small></div><div class="big"><b class="num">87</b><small>خبرًا</small></div></div>
-      </div>
-      <div class="pane">
-        <p class="cap">يعرض متى وأين ظهر الخبر أول مرة، وكيف انتقل من حساب إلى آخر.</p>
-        <ol class="trace">
-          <li class="first"><time class="num">07:42</time><b>تغريدة من حساب مجهول بلا سجل سابق</b><span class="tag">أول ظهور</span></li>
-          <li><time class="num">07:58</time><b>أعاد نشرها 12 حسابًا خلال ربع ساعة</b></li>
-          <li><time class="num">08:10</time><b>موقع إخباري ينقلها دون ذكر مصدر</b></li>
-        </ol>
-      </div>
-      <div class="pane">
-        <p class="cap">يميّز الادعاء غير المؤكد عن المعلومة الموثّقة، ويوضح السبب.</p>
-        <div class="vcards">
-          <div class="vc bad"><div class="top"><q>نخلة سترفع أسعار الباقات 40%</q><span class="chip bad">غير مؤكد</span></div>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>لا يوجد إعلان على موقع نخلة الرسمي</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>أول ظهور من حساب بلا سجل سابق</li></ul></div>
-          <div class="vc ok"><div class="top"><q>لا تغيير على أسعار الباقات</q><span class="chip ok">موثّق</span></div>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>بيان منشور في حساب نخلة الرسمي 09:12</li></ul></div>
-        </div>
-      </div>
-      <div class="pane">
-        <p class="cap">موجز جاهز للمراجعة، وكل معلومة فيه معها رقم يوصلك لمصدرها.</p>
-        <div class="doc">
-          <div class="dh"><b>موجز: ادعاء رفع أسعار نخلة</b><small class="num">09:20</small></div>
-          <p><strong>الخلاصة:</strong> الادعاء غير صحيح. نفته الشركة في بيان رسمي<sup>[3]</sup>.</p>
-          <p>ظهر لأول مرة 07:42 من حساب مجهول<sup>[1]</sup>، وانتشر في 31 مصدرًا. لم يُنشر أي إعلان على الموقع الرسمي<sup>[2]</sup>.</p>
-          <div class="refs"><span><b>[1]</b> تغريدة، 07:42</span><span><b>[2]</b> موقع نخلة، صفحة الأسعار</span><span><b>[3]</b> بيان نخلة الرسمي، 09:12</span></div>
-        </div>
-        <div class="doc-acts"><span class="y">اعتماد الموجز</span><span>تصدير PDF</span><span>مشاركة مع الفريق</span></div>
-      </div>
-    </div>
-  </div>
-</div></section>
-
 <!-- live example -->
 <section class="band dark" id="example"><div class="wrap">
-  <div class="head"><h2 class="h2 rv">دراسة حالة: تتبّع إشاعة منذ ظهورها</h2><p class="lede rv">انتشر صباحًا ادعاء بأن شركة «نخلة للاتصالات» سترفع أسعار باقاتها 40%. يوضح هذا المثال كيف عالج رسين الخبر خلال ساعة ونصف.</p></div>
+  <div class="head"><h2 class="h2 rv">من عشرات الأخبار إلى موجز واحد موثّق</h2><p class="lede rv">انتشر صباحًا ادعاء بأن شركة «نخلة للاتصالات» سترفع أسعار باقاتها 40%. يوضح هذا المثال كيف عالج رسين الخبر خلال ساعة ونصف.</p></div>
   <div class="player rv">
     <div class="pl-steps" id="tl"><span class="pl-track"><i id="tlBar"></i></span>
-      <button class="pst bad" data-k="1"><span class="dot"></span><time class="num">07:42</time><b>أول ظهور</b></button>
-      <button class="pst" data-k="2"><span class="dot"></span><time class="num">08:00</time><b>قصة واحدة</b></button>
-      <button class="pst bad" data-k="3"><span class="dot"></span><time class="num">08:15</time><b>غير مؤكد</b></button>
-      <button class="pst end" data-k="4"><span class="dot"></span><time class="num">09:12</time><b>الموجز جاهز</b></button>
+      <button class="pst bad" data-k="1"><span class="dot"></span><time class="num">07:42</time><b><span class="lg">يتتبع أول مصدر</span><span class="sm">أول مصدر</span></b></button>
+      <button class="pst" data-k="2"><span class="dot"></span><time class="num">08:00</time><b><span class="lg">يجمع المكرر في قصة واحدة</span><span class="sm">قصة واحدة</span></b></button>
+      <button class="pst bad" data-k="3"><span class="dot"></span><time class="num">08:15</time><b><span class="lg">يفرّق بين الادعاء والمعلومة</span><span class="sm">ادعاء أم معلومة</span></b></button>
+      <button class="pst end" data-k="4"><span class="dot"></span><time class="num">09:12</time><b><span class="lg">يجهّز الموجز</span><span class="sm">الموجز</span></b></button>
     </div>
     <div class="pl-body">
       <div>
@@ -741,7 +710,7 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
 <footer><div class="wrap">
   <div class="ft">
     <div><img src="{{LOGO}}" alt="رسين"><p>رسين منصة ذكاء إعلامي للرصد والتحليل واتخاذ القرار.</p></div>
-    <div><h6>المنصة</h6><a href="#features">المزايا</a><a href="#example">دراسة حالة</a><a href="#ai">الذكاء الاصطناعي</a></div>
+    <div><h6>المنصة</h6><a href="#example">المزايا</a><a href="#ai">الذكاء الاصطناعي</a></div>
     <div><h6>عن رسين</h6><a href="#who">لمن رسين</a><a href="#faq">الأسئلة الشائعة</a></div>
   </div>
   <div class="fb"><span>© 2026 رسين. جميع الحقوق محفوظة.</span></div>
@@ -983,23 +952,6 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
    ['home','setup','story','analysis','competitors'].forEach(function(k){var im=new Image();im.src='assets/screens/'+k+'.jpg'});
    bs.forEach(function(b){b.addEventListener('click',function(){bs.forEach(function(x){x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});img.style.opacity=0;setTimeout(function(){img.setAttribute('href','assets/screens/'+b.dataset.s+'.jpg');img.style.opacity=1},200)})})})();
 
-  // ---------- feature tabs: advance on their own, a tap picks one
-  var tabs=$$('.tab'), panes=$$('#show .pane'), cur=0, TAB=6, tabTw=null;
-  // the block takes the height of the step on show, so short steps leave no empty space
-  var showEl=$('#show'); function fitShow(){ if(showEl&&panes[cur]) showEl.style.height=panes[cur].offsetHeight+'px'; }
-  addEventListener('resize',fitShow); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitShow);
-  function showTab(i){
-    cur=i; tabs.forEach(function(t,j){t.classList.toggle('on',j===i);t.setAttribute('aria-selected',j===i)}); panes.forEach(function(p,j){p.classList.toggle('on',j===i)}); fitShow();
-    if(!window.gsap) return;
-    if(tabTw) tabTw.kill();
-    $$('.tab .pr i').forEach(function(b,j){gsap.set(b,{scaleX:j<i?1:0})}); tabs.forEach(function(t,j){t.classList.toggle('done',j<i)});
-    tabTw=gsap.to(tabs[i].querySelector('.pr i'),{scaleX:1,duration:TAB,ease:'none',paused:true,onComplete:function(){showTab((cur+1)%tabs.length);tabTw.play()}});
-    if(featVis&&!reduce) tabTw.play();
-  }
-  var featVis=false;
-  new IntersectionObserver(function(e){featVis=e[0].isIntersecting; if(tabTw){featVis&&!reduce?tabTw.play():tabTw.pause();}},{threshold:.35}).observe($('#features'));
-  tabs.forEach(function(t,i){t.addEventListener('click',function(){showTab(i)})});
-
   // ---------- live example: plays by itself when it comes into view
   var cw=$('#cw'), tlis=$$('#tl .pst'), nar=$('#nar'), NAR=[['07:42','ظهر الادعاء لأول مرة','تغريدة من حساب مجهول. رسين يلتقطها ويفتح لها قصة.'],['08:00','87 خبرًا في قصة واحدة','انتشر الادعاء في 31 مصدرًا، ورسين يجمعها بدل أن يقرأها فريقك واحدًا واحدًا.'],['08:15','تتبّع أول مصدر بالأدلة','لا يوجد مصدر رسمي يؤكد الادعاء، فيضعه رسين تحت «غير مؤكد» وينبّه الفريق.'],['09:12','البيان الرسمي والموجز جاهز','نخلة تنفي في بيان رسمي، ورسين يربط البيان بالقصة ويجهّز موجزًا موثقًا.']], tlBar=$('#tlBar'), lnC=$('#lnC'), lnO=$('#lnO'), cN=$('#cN'), cS=$('#cS'), badge=$('#badge'), cnt={n:0,s:0};
   [lnC,lnO].forEach(function(l){var n=l.getTotalLength();l.style.strokeDasharray=n;l.style.strokeDashoffset=n;l._n=n;});
@@ -1036,7 +988,6 @@ footer{background:var(--navy);color:var(--on-2);padding-block:72px 32px;margin-t
     gsap.to(o,{v:v,duration:1,ease:'power3.out',onUpdate:function(){b.textContent=o.v.toFixed(1);fillBar(b,o.v)}});}
   if(!window.gsap){$$('.cnt').forEach(countUp);$('#loader').remove();return;}
   var st=window.ScrollTrigger; if(st) gsap.registerPlugin(st);
-  showTab(0);
 
   var t=$('#title'); t.innerHTML='<span class="ch">'+t.textContent+'</span>';
   var disc=$('#disc'), rip=disc.querySelector('.ripple'), lastHit=0;

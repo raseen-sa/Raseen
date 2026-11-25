@@ -38,7 +38,12 @@ body{font-family:'Noto Sans Arabic',system-ui,sans-serif;color:var(--navy);overf
   .s{position:relative;visibility:visible;opacity:1;break-after:page;page-break-after:always}
   .s:last-child{break-after:auto}
   .sweep,.orb{animation:none!important}
+  .sweep{display:none!important}.sweepp{display:block!important}
+  .radar{contain:none!important;isolation:auto!important}
+  .blip{animation:none!important;opacity:.85!important}
 }
+.sweepp{display:none}
+.pr .sweep{display:none}.pr .sweepp{display:block}.pr .radar{contain:none;isolation:auto}.pr .blip{animation:none;opacity:.85}
 /* ---------- common slide parts ---------- */
 .top{top:22px;right:40px;left:40px;height:34px}
 .top .lg{right:0;top:0;width:96px;height:30px}
@@ -137,7 +142,7 @@ body{font-family:'Noto Sans Arabic',system-ui,sans-serif;color:var(--navy);overf
   <div class="panel"><span class="lat">RASEEN</span>
     <div class="radar"><div class="ring abs" style="inset:0"></div><div class="ring abs" style="inset:17%"></div><div class="ring abs" style="inset:34%"></div>
 <div class="ax abs" style="left:0;right:0;top:50%;height:1px"></div><div class="ax abs" style="top:0;bottom:0;left:50%;width:1px"></div>
-<div class="sweep abs"></div>
+<div class="sweep abs"></div><svg class="sweepp abs" viewBox="0 0 100 100" style="inset:0;width:100%;height:100%"><path d="M50 50 L50 0 A50 50 0 0 1 93.3 25 Z" fill="#2FB3A3" fill-opacity=".2"/><path d="M50 50 L93.3 25" stroke="#2FB3A3" stroke-width=".5"/></svg>
 <i class="blip abs" style="left:76%;top:20%;animation-delay:1.3s"></i><i class="blip e abs" style="left:84%;top:66%;animation-delay:3.4s"></i><i class="blip abs" style="left:30%;top:80%;animation-delay:5.4s"></i><i class="blip e abs" style="left:18%;top:34%;animation-delay:7.5s"></i>
 <div class="core" style="width:86px;height:86px;margin:-43px 0 0 -43px"><i class="mkbg abs"></i></div></div></div>
   <div class="chip2 a"><b></b>معسكر الابتكار الإعلامي</div>
@@ -155,7 +160,7 @@ body{font-family:'Noto Sans Arabic',system-ui,sans-serif;color:var(--navy);overf
 <section class="s dv" style="--c:var(--gold)">
   <div class="panel"><div class="radar"><div class="ring abs" style="inset:0"></div><div class="ring abs" style="inset:17%"></div><div class="ring abs" style="inset:34%"></div>
 <div class="ax abs" style="left:0;right:0;top:50%;height:1px"></div><div class="ax abs" style="top:0;bottom:0;left:50%;width:1px"></div>
-<div class="sweep abs"></div>
+<div class="sweep abs"></div><svg class="sweepp abs" viewBox="0 0 100 100" style="inset:0;width:100%;height:100%"><path d="M50 50 L50 0 A50 50 0 0 1 93.3 25 Z" fill="#2FB3A3" fill-opacity=".2"/><path d="M50 50 L93.3 25" stroke="#2FB3A3" stroke-width=".5"/></svg>
 <i class="blip abs" style="left:76%;top:20%;animation-delay:1.3s"></i><i class="blip e abs" style="left:84%;top:66%;animation-delay:3.4s"></i><i class="blip abs" style="left:30%;top:80%;animation-delay:5.4s"></i><i class="blip e abs" style="left:18%;top:34%;animation-delay:7.5s"></i>
 <div class="core" style="width:81px;height:81px;margin:-40px 0 0 -40px"><i class="mkbg abs"></i></div></div><div class="cap">أربعة أسئلة نجيب عنها: من يواجه المشكلة؟ ومتى؟ وما الذي يضيع؟ وما الدليل عليها؟</div></div>
   <div class="lgx lgbg"></div>
@@ -261,7 +266,7 @@ body{font-family:'Noto Sans Arabic',system-ui,sans-serif;color:var(--navy);overf
 <section class="s dv" style="--c:var(--em)">
   <div class="panel"><div class="radar"><div class="ring abs" style="inset:0"></div><div class="ring abs" style="inset:17%"></div><div class="ring abs" style="inset:34%"></div>
 <div class="ax abs" style="left:0;right:0;top:50%;height:1px"></div><div class="ax abs" style="top:0;bottom:0;left:50%;width:1px"></div>
-<div class="sweep abs"></div>
+<div class="sweep abs"></div><svg class="sweepp abs" viewBox="0 0 100 100" style="inset:0;width:100%;height:100%"><path d="M50 50 L50 0 A50 50 0 0 1 93.3 25 Z" fill="#2FB3A3" fill-opacity=".2"/><path d="M50 50 L93.3 25" stroke="#2FB3A3" stroke-width=".5"/></svg>
 <i class="blip abs" style="left:76%;top:20%;animation-delay:1.3s"></i><i class="blip e abs" style="left:84%;top:66%;animation-delay:3.4s"></i><i class="blip abs" style="left:30%;top:80%;animation-delay:5.4s"></i><i class="blip e abs" style="left:18%;top:34%;animation-delay:7.5s"></i>
 <div class="core" style="width:81px;height:81px;margin:-40px 0 0 -40px"><i class="mkbg abs"></i></div></div><div class="cap">ستة أقسام تمشي بالخبر من لحظة رصده إلى قرار الاستجابة.</div></div>
   <div class="lgx lgbg"></div>
@@ -586,7 +591,7 @@ body{font-family:'Noto Sans Arabic',system-ui,sans-serif;color:var(--navy);overf
 <section class="s cv" style="--c:var(--gold)">
   <div class="panel"><div class="radar"><div class="ring abs" style="inset:0"></div><div class="ring abs" style="inset:17%"></div><div class="ring abs" style="inset:34%"></div>
 <div class="ax abs" style="left:0;right:0;top:50%;height:1px"></div><div class="ax abs" style="top:0;bottom:0;left:50%;width:1px"></div>
-<div class="sweep abs"></div>
+<div class="sweep abs"></div><svg class="sweepp abs" viewBox="0 0 100 100" style="inset:0;width:100%;height:100%"><path d="M50 50 L50 0 A50 50 0 0 1 93.3 25 Z" fill="#2FB3A3" fill-opacity=".2"/><path d="M50 50 L93.3 25" stroke="#2FB3A3" stroke-width=".5"/></svg>
 <i class="blip abs" style="left:76%;top:20%;animation-delay:1.3s"></i><i class="blip e abs" style="left:84%;top:66%;animation-delay:3.4s"></i><i class="blip abs" style="left:30%;top:80%;animation-delay:5.4s"></i><i class="blip e abs" style="left:18%;top:34%;animation-delay:7.5s"></i>
 <div class="core" style="width:86px;height:86px;margin:-43px 0 0 -43px"><i class="mkbg abs"></i></div></div></div>
   <div class="lgx lgbg abs" style="right:40px;top:30px;width:110px;height:34px"></div>
